@@ -3,8 +3,7 @@ pipeline:
     when:
       branch: master
       event: [ pull_request, push ]
-    username: ${DOCKER_USERNAME}
-    password: "${DOCKER_PASSWORD}"
+    secrets: [ docker_username, docker_password ]
     image: plugins/docker
     repo: dewjam/preso-nginx
     build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
@@ -17,8 +16,7 @@ pipeline:
       when:
         branch: master
         event: push
-      username: ${DOCKER_USERNAME}
-      password: ${DOCKER_PASSWORD}
+      secrets: [ docker_username, docker_password ]
       image: plugins/docker
       repo: dewjam/preso-nginx
       build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
@@ -30,8 +28,7 @@ pipeline:
     when:
       branch: refs/tags/*
       event: tag
-    username: ${DOCKER_USERNAME}
-    password: ${DOCKER_PASSWORD}
+    secrets: [ docker_username, docker_password ]
     image: plugins/docker
     repo: dewjam/preso-nginx
     build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
