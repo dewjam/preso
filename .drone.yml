@@ -36,15 +36,10 @@ pipeline:
       - latest
       - "${DRONE_TAG##v}"
 
-  # deployment-to-k8s:
-  #     when:
-  #       branch: master
-  #       event: push
-  #     image: target/drone-kubernetes:latest
-  #     kube_config: ${KUBE_CONFIG}
-  #     context: hitachi
-  #     filename: kubernetes
-  #     images:
-  #       hello-cloud: hello-cloud.docker.target.com/hello-cloud:${DRONE_tag:0:8}
-  #     status: deployment/hello-cloud-deployment
-  #     status_timeout: 4m30s
+  deployment-to-k8s:
+      when:
+        branch: master
+        event: pull_request
+      image: dewjam/kubectl:latest
+      commands:
+        - kubectl version
