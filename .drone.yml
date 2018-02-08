@@ -39,7 +39,7 @@ pipeline:
   deployment-to-k8s:
       when:
         branch: master
-        event: pull_request
+        event: push
       image: dewjam/kubectl:latest
       commands:
         - kubectl version
