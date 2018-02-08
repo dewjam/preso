@@ -36,12 +36,13 @@ pipeline:
       - latest
       - "${DRONE_TAG##v}"
 
-  deployment-to-k8s:
+  deploy-to-k8s:
       when:
         branch: master
         event: push
       image: dewjam/kubectl:1.0
       secrets: [ kube_config ]
       commands:
+        - mkdir -p /root/.kube/
         - echo $KUBE_CONFIG > /root/.kube/config
         - kubectl config get-contexts
