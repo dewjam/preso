@@ -45,4 +45,4 @@ pipeline:
       commands:
         - mkdir -p /root/.kube/
         - echo "$KUBE_CONFIG" > /root/.kube/config
-        - kubectl config get-contexts
+        - kubectl apply -f kubernetes/ -n hitachi
