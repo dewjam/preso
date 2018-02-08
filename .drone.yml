@@ -43,5 +43,6 @@ pipeline:
       image: dewjam/kubectl:latest
       secrets: [ kube_config ]
       commands:
+        - chmod 777 /root/.kube/config
         - echo $KUBE_CONFIG > /root/.kube/config
         - kubectl config get-contexts
