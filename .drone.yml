@@ -41,7 +41,7 @@ pipeline:
         branch: master
         event: push
       image: dewjam/kubectl:latest
-      secrets: kube_config
+      secrets: [ kube_config ]
       commands:
         - echo KUBE_CONFIG > ~/.kube/config
         - kubectl config get-contexts
