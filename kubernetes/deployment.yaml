@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: preso-nginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: preso-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: dewjam/preso-nginx
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: nginx-html
+      volumes:
+      - name: nginx-html
+        configMap:
+          name: nginx-html-config
