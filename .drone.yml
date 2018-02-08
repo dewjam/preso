@@ -20,6 +20,7 @@ pipeline:
       username: ${DOCKER_USERNAME}
       password: "${DOCKER_PASSWORD}"
       image: plugins/docker
+      registry: hub.docker.com
       repo: dewjam/preso-nginx
       build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
       tag:
@@ -33,6 +34,7 @@ pipeline:
     username: ${DOCKER_USERNAME}
     password: "${DOCKER_PASSWORD}"
     image: plugins/docker
+    registry: hub.docker.com
     repo: dewjam/preso-nginx
     build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
     tag:
