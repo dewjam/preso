@@ -44,5 +44,5 @@ pipeline:
       secrets: [ kube_config ]
       commands:
         - mkdir -p /root/.kube/
-        - echo $KUBE_CONFIG > /root/.kube/config
+        - echo "$KUBE_CONFIG" > /root/.kube/config
         - kubectl config get-contexts
