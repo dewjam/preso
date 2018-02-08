@@ -18,9 +18,8 @@ pipeline:
         branch: master
         event: push
       username: ${DOCKER_USERNAME}
-      password: "${DOCKER_PASSWORD}"
+      password: ${DOCKER_PASSWORD}
       image: plugins/docker
-      registry: hub.docker.com
       repo: dewjam/preso-nginx
       build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
       tag:
@@ -32,9 +31,8 @@ pipeline:
       branch: refs/tags/*
       event: tag
     username: ${DOCKER_USERNAME}
-    password: "${DOCKER_PASSWORD}"
+    password: ${DOCKER_PASSWORD}
     image: plugins/docker
-    registry: hub.docker.com
     repo: dewjam/preso-nginx
     build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
     tag:
