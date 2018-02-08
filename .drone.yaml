@@ -1,0 +1,53 @@
+pipeline:
+  build_dry_run:
+    when:
+      branch: master
+      event: [ pull_request, push ]
+    username: ${DOCKER_USERNAME}
+    password: "${DOCKER_PASSWORD}"
+    image: plugins/docker
+    repo: dewjam/preso-nginx
+    build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
+    dry_run: true
+    tag:
+      - snapshot
+      - "0.0.${DRONE_BUILD_NUMBER}"
+
+  publish_image_snapshot:
+      when:
+        branch: master
+        event: push
+      username: ${DOCKER_USERNAME}
+      password: "${DOCKER_PASSWORD}"
+      image: plugins/docker
+      repo: dewjam/preso-nginx
+      build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
+      tag:
+        - snapshot
+        - "0.0.${DRONE_BUILD_NUMBER}"
+
+  publish_image_release:
+    when:
+      branch: refs/tags/*
+      event: tag
+    username: ${DOCKER_USERNAME}
+    password: "${DOCKER_PASSWORD}"
+    image: plugins/docker
+    repo: dewjam/preso-nginx
+    build_args: VERSION="0.0.${DRONE_BUILD_NUMBER}"
+    tag:
+      - latest
+      - "${DRONE_TAG##v}"
+
+  deployment-to-k8s:
+      when:
+        branch: master
+        event: push
+      image: target/drone-kubernetes:latest
+      kube_config: ${KUBE_CONFIG}
+      context: hitachi
+      filename: kubernetes
+      images:
+        hello-cloud: hello-cloud.docker.target.com/hello-cloud:${DRONE_tag:0:8}
+      status: deployment/hello-cloud-deployment
+      status_timeout: 4m30s
