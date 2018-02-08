@@ -40,9 +40,8 @@ pipeline:
       when:
         branch: master
         event: push
-      image: dewjam/kubectl:latest
+      image: dewjam/kubectl:1.0
       secrets: [ kube_config ]
       commands:
-        - chmod 777 /root/.kube/config
         - echo $KUBE_CONFIG > /root/.kube/config
         - kubectl config get-contexts
