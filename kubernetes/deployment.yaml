@@ -3,6 +3,10 @@ kind: Deployment
 metadata:
   name: preso-nginx
 spec:
+  strategy:
+    type: RollingUpdate
+    maxSurge: 1
+    maxUnavailable: 1
   replicas: 3
   template:
     metadata:
