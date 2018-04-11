@@ -46,3 +46,4 @@ pipeline:
         - mkdir -p /root/.kube/
         - echo "$KUBE_CONFIG" > /root/.kube/config
         - kubectl apply -f kubernetes/ -n emc-preso
+        - kubectl patch deployment preso-nginx -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
