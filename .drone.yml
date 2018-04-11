@@ -2,7 +2,7 @@ pipeline:
   build_dry_run:
     when:
       branch: master
-      event: [ pull_request, push ]
+      event: [ pull_request ]
     secrets: [ docker_username, docker_password ]
     image: plugins/docker
     repo: dewjam/preso-nginx
