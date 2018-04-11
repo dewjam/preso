@@ -41,5 +41,8 @@ pipeline:
         branch: master
         event: push
       image: dewjam/kubectl:1.1
+      secrets: [ kube_config ]
       commands:
+        - mkdir -p /root/.kube/
+        - echo "$KUBE_CONFIG" > /root/.kube/config
         - kubectl apply -f kubernetes/ -n emc-preso
